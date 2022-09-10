@@ -1,0 +1,78 @@
+@use 'mixins' as mix;
+@use 'functions' as func;
+@use 'variables' as *;
+
+// c before any variables stands for color also since underscore is allowed i will always
+//use underscore for variable names to stand same line with all other programming conventions */
+
+body > div:first-child {
+  border: func.pxToRem(1) solid $c_red;
+  & > h1:first-child {
+    // here just being 100% specific also the & sign is redundant i think
+    @extend %text;
+    border-bottom: func.pxToRem(1) solid $c_blue;
+  }
+
+  & > h2:nth-child(2) {
+    // here just being 100% specific also the & sign is redundant i think
+    @extend %text;
+    padding: func.pxToRem(16);
+    border: func.pxToRem(1) solid $c_red;
+  }
+
+  & > section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: func.pxToRem(15);
+
+    &:first-of-type article:nth-child(odd) {
+      @include mix.article-style($c_blue, $c_green, func.pxToRem(10));
+    }
+
+    &:first-of-type article:nth-child(even) {
+      @include mix.article-style($c_red, $c_green, func.pxToRem(10));
+    }
+
+    &:last-of-type article {
+      @include mix.article-style($c_green, $c_blue, func.pxToRem(24));
+    }
+  }
+  & > section:nth-of-type(2) {
+    display: flex;
+    justify-content: space-between;
+
+    & div {
+      width: func.pxToRem(45);
+      height: func.pxToRem(45);
+      @for $i from 1 through 19 {
+        @if $i == 10 {
+          &:nth-of-type(#{$i}) {
+            background-color: $c_blue;
+            color: $c_red;
+          }
+        } @else {
+          &:nth-of-type(#{$i}) {
+            background-color: darken($light, calc($i * 5));
+            color: lighten($dark, calc($i * 5));
+          }
+        }
+      }
+    }
+  }
+}
+
+//place holders  we could also create a partials for place holders later
+%text {
+  margin-left: auto;
+  margin-right: auto;
+  width: max-content;
+  text-align: center;
+  color: $c_green;
+}
+
+@for $i from 1 through 3 {
+  .fs-#{$i}rem {
+    font-size: func.pxToRem(calc($i * 16));
+  }
+}

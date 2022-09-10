@@ -1,0 +1,6 @@
+@mixin article-style($color, $border-color, $font-size: 1rem) {
+  color: $color;
+  text-align: center;
+  padding: $font-size;
+  border: 1px solid $border-color;
+}
