@@ -71,8 +71,14 @@ body > div:first-child {
   color: $c_green;
 }
 
-@for $i from 1 through 3 {
-  .fs-#{$i}rem {
-    font-size: func.pxToRem(calc($i * 16));
+$font-size: (
+  'fs-1': 1,
+  'fs-2': 2,
+  'fs-3': 3,
+);
+
+@each $fs, $value in $font-size {
+  .#{$fs}rem {
+    font-size: func.pxToRem(calc($value * 16));
   }
 }
